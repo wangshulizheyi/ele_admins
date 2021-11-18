@@ -1,7 +1,9 @@
 <template>
-  <div id="nav">
-    <router-view />
+  <div>
+    <router-view></router-view>
   </div>
 </template>
 
-<style lang="scss"></style>
+<script setup></script>
+
+<style></style>
