@@ -1,10 +1,13 @@
-import { login } from '../../api/user.js'
+import { login, getUserInfo } from '../../api/user.js'
 import md5 from 'md5'
 import * as utils from '@/utils/storage.js'
-import { TOKEN } from '@/common/common.js'
+import { TOKEN, USER_INFO } from '@/common/common.js'
+import router from '@/router/index.js'
+import { setTimeStamp } from '@/utils/auth.js'
 
 const state = {
-  token: ''
+  token: utils.getItem(TOKEN) || '',
+  userInfo: utils.getItem(USER_INFO) || {}
 }
 const getters = {}
 const mutations = {
@@ -13,6 +16,10 @@ const mutations = {
     state.token = token
     // 保存到本地存储中
     utils.setItem(TOKEN, token)
+  },
+  setUserInfo(state, userInfo) {
+    state.userInfo = userInfo
+    utils.setItem(USER_INFO, userInfo)
   }
 }
 const actions = {
@@ -25,10 +32,31 @@ const actions = {
         username,
         password: md5(password)
       }).then((res) => {
+        // 保存token 到vuex 和本地存储中
         commit('setToken', res.token)
+        // 记录token的获取时间
+        setTimeStamp()
         resolve()
       })
     })
+  },
+  logout({ commit }) {
+    // 清理用户数据
+    commit('setToken', '')
+
+    commit('setUserInfo', {})
+
+    // 跳转
+    router.push('/login')
+  },
+  getUserInfo({ commit }) {
+    getUserInfo()
+      .then((res) => {
+        commit('setUserInfo', res)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 }
 

@@ -1,9 +1,9 @@
 // 用户鉴权
-
 import router from './router'
 import store from './store/index.js'
 
-router.beforeEach((to, from, next) => {
+const whiteRouter = ['/login']
+router.beforeEach(async (to, from, next) => {
   /*
     用户鉴权
       当用户未登录是(没有token) ,只能进入login页面
@@ -13,10 +13,17 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next('/')
     } else {
+      if (!store.getters.hasUserInfo) {
+        // setTimeout(async () => {
+        //   await store.dispatch('user/getUserInfo')
+        //   next()
+        // }, 70000)
+        await store.dispatch('user/getUserInfo')
+      }
       next()
     }
   } else {
-    if (to.path === '/login') {
+    if (whiteRouter.indexOf(to.path) > -1) {
       next()
     } else {
       next('/login')

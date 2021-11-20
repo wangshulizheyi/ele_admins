@@ -3,6 +3,7 @@ import axios from 'axios'
 // import { getItem } from '@/utils/storage.js'
 // import { TOKEN } from '@/common/common.js'
 import store from '@/store/index.js'
+import { isCheckTimeOut } from './auth.js'
 // 分装token
 const server = axios.create({
   timeout: 5000,
@@ -15,6 +16,10 @@ const server = axios.create({
 server.interceptors.request.use(
   (config) => {
     if (store.getters.token) {
+      if (!isCheckTimeOut()) {
+        store.dispatch('user/loout')
+        return Promise.reject(new Error('token 过期'))
+      }
       // 如果存在token 不存在 不封装
       config.headers.Authorization = `Bearer ${store.getters.token}`
     }
