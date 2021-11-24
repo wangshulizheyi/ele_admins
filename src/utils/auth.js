@@ -6,13 +6,13 @@ export const setTimeStamp = () => {
 }
 
 const getTimeStamp = () => {
-  return local.getItem(TIME_OUT)
+  return local.getItem(TIME_STAMP)
 }
 
 export const isCheckTimeOut = () => {
   const currentTime = Date.now()
 
-  const time_stamp = getItemStamp()
+  const timestamp = getTimeStamp()
 
-  return currentTime - time_stamp <= TIME_OUT
+  return currentTime - timestamp <= TIME_OUT
 }

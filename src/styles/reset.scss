@@ -4,7 +4,6 @@ div,
 span,
 applet,
 object,
-h1,
 h2,
 h3,
 h4,
@@ -86,7 +85,6 @@ video {
   font-weight: normal;
   vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
 article,
 aside,
 details,
@@ -129,7 +127,7 @@ a {
   outline: none;
   color: #16418a;
   text-decoration: none;
-  -webkit-backface-visibility: hidden;
+  --webkit-backface-visibility: hidden;
 }
 a:focus {
   outline: none;

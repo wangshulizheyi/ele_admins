@@ -157,7 +157,7 @@ $cursor: #fff;
       }
     }
     .svg_container {
-      padding: 6px 5px 5px 15px;
+      padding: 6px 5px 5px 5px;
       color: $dark_gray;
       vertical-align: middle;
       display: inline-block;

@@ -75,8 +75,8 @@ app.use(store).use(router).mount('#app')
             也是要你执行前的退出操作　  
         ２.　如果是后端token失效　和　单端登录
             以’特定‘的状态码通知前端
-              ｃｏｄｅ　４０１　后台token失效
-              ｃｏｄｅ　４０５　单点登录　
+              code 401　后台token失效
+              code 405　单点登录　
             也是要你执行前的退出操作　
 
 

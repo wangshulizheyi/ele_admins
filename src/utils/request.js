@@ -1,7 +1,5 @@
 import { ElMessage } from 'element-plus'
 import axios from 'axios'
-// import { getItem } from '@/utils/storage.js'
-// import { TOKEN } from '@/common/common.js'
 import store from '@/store/index.js'
 import { isCheckTimeOut } from './auth.js'
 // 分装token
@@ -17,7 +15,7 @@ server.interceptors.request.use(
   (config) => {
     if (store.getters.token) {
       if (!isCheckTimeOut()) {
-        store.dispatch('user/loout')
+        store.dispatch('user/logout')
         return Promise.reject(new Error('token 过期'))
       }
       // 如果存在token 不存在 不封装
@@ -45,6 +43,13 @@ server.interceptors.response.use(
     }
   },
   (error) => {
+    if (
+      error.response &&
+      error.response.data &&
+      error.response.data.code === 401
+    ) {
+      store.dispatch('user/logout')
+    }
     ElMessage({
       type: 'error',
       message: '服务器请求失败'
