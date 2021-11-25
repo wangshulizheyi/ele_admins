@@ -11,10 +11,13 @@ import initSvgIcon from './icons/index.js'
 // 用户鉴权
 import './permission.js'
 
+// 导入i18n
+import i18n from '@/i18n/index.js'
+
 const app = createApp(App)
 installElementPlus(app)
 initSvgIcon(app)
-app.use(store).use(router).mount('#app')
+app.use(store).use(router).use(i18n).mount('#app')
 
 /* eslint-disable*/
 
@@ -140,6 +143,17 @@ app.use(store).use(router).mount('#app')
     3.根据获取的路由对象 遍历输出对应的菜单   
 
 
+*/
+
+/* 
+  中英文切换(国际化)
+    1.需要一个变量 locale控制语言环境
+    2.所有的语言中的数据源需要事先准备好
+    3.定义一个方法获取对应语言包中的数据
+
+    借助 i18n 插件完成国际化
+      1.下载 i18n  npm install vue-i18n@next  //因为项目版本为vue3.2,所以保证i18n 必须在9.0.0
+      2.
 */
 
 /* eslint-enable */

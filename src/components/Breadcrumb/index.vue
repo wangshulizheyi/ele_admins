@@ -6,10 +6,10 @@
         :key="item.path"
       >
         <span v-if="index === item.length - 1" class="no-redirect">
-          {{ item.meta.title }}
+          {{ getTitle(item.meta.title) }}
         </span>
         <a v-else class="redirect" @click.prevent="onLinkClick(item)">
-          {{ item.meta.title }}
+          {{ getTitle(item.meta.title) }}
         </a>
       </el-breadcrumb-item>
     </transition-group>
@@ -19,6 +19,7 @@
 <script setup>
 import { watch, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { getTitle } from '@/utils/i18n.js'
 const breadcrumbData = ref([])
 const route = useRoute()
 console.log(route)
